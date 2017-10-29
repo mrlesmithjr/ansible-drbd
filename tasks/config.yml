@@ -58,7 +58,7 @@
   become: true
   register: _drbd_sync
   until: ('Inconsistent' not in _drbd_sync['stdout'])
-  retries: 20
+  retries: 100
   delay: 30
   when: >
         _drbd_primary['changed'] and
