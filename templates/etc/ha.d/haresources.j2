@@ -1,5 +1,5 @@
 # {{ ansible_managed }}
 
 {% for item in drbd_disks %}
-{{ groups[drbd_group][0] }} {{ drbd_vip }} drbddisk::{{ item['resource'] }} Filesystem::{{ item['device'] }}::{{ item['mountpoint'] }}::{{ item['filesystem'] }}::noatime
+{{ hostvars[groups[drbd_group][0]]['inventory_hostname_short'] }} {{ drbd_vip }} drbddisk::{{ item['resource'] }} Filesystem::{{ item['device'] }}::{{ item['mountpoint'] }}::{{ item['filesystem'] }}::noatime
 {% endfor %}
