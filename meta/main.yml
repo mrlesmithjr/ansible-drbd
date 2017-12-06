@@ -9,6 +9,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
+    - name: EL
+      versions:
+        - 6
 
   galaxy_tags:
     - clustering
