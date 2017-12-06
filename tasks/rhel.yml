@@ -1,0 +1,13 @@
+---
+- name: rhel | Installing DRBD
+  yum:
+    name: drbd-utils
+    state: present
+  become: true
+
+- name: rhel | Installing Heartbeat Package
+  apt:
+    name: heartbeat
+    state: present
+  become: true
+

@@ -1,6 +1,14 @@
 ---
-- name: debian | Installing DRBD
+- name: debian | Installing DRBD package
   apt:
     name: drbd8-utils
     state: present
   become: true
+
+- name: debian | Installing Heartbeat Package
+  apt:
+    name: heartbeat
+    state: present
+  become: true
+
+
