@@ -1,13 +1,13 @@
 ---
-- name: debian | Installing DRBD packages
-  apt:
+- name: rhel | Installing DRBD packages
+  yum:
     name: "{{ item }}"
     state: present
   become: true
   with_items: "{{ drbd_additional_packages }}"
 
-- name: debian | Installing Heartbeat Package
-  apt:
+- name: rhel | Installing Heartbeat Package
+  yum:
     name: heartbeat
     state: present
   become: true

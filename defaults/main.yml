@@ -18,3 +18,8 @@ drbd_interface: enp0s8
 drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
+
+# Debian9
+drbd_additional_packages: ['drbd8-utils']
+# EPEL for RedHat, requires repo already configures, see geerlingguy.repo-epel
+# drbd_additional_packages: ['drbd84-utils', 'kmod-drbd84']
