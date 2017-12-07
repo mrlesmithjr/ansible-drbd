@@ -6,7 +6,7 @@
   become: true
 
 - name: rhel | Installing Heartbeat Package
-  apt:
+  yum:
     name: heartbeat
     state: present
   become: true
