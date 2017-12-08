@@ -5,6 +5,14 @@
     state: present
   become: true
 
+- name: debian | Installing DRBD
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ drbd_additional_packages }}"
+
+
 - name: debian | Installing Heartbeat Package
   apt:
     name: heartbeat

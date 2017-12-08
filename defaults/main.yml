@@ -24,3 +24,5 @@ drbd_inventory_hostname_key: inventory_hostname_short
 drbd_use_parted: true
 drbd_unicast_mode: false
 drbd_unicast_port: 694
+
+drbd_additional_packages: []
