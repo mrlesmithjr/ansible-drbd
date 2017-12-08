@@ -26,3 +26,4 @@ drbd_additional_packages: ['drbd8-utils']
 
 # Toggle
 drbd_use_heartbeat: true
+drbd_use_parted: true

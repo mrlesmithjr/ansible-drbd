@@ -68,6 +68,7 @@ Additional variables include
 
 ```
 drbd_use_heartbeat: true
+drbd_use_parted: true
 ```
 
 ## Dependencies
