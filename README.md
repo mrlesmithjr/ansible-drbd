@@ -81,6 +81,14 @@ Heartbeat is available for CentOS6, but not for CentOS7.  Heartbeat is now optio
 
 The behaviour of loop disk partitions is has only become more consistent in later linux distributions. To maintain compatibility, the option to toggle off parted `drbd_use_parted` is provided. Toggle is `true` by default.
 
+## Unicast Mode
+
+For platforms supporting Heartbeat, but not multi-cast UDP, we support a toggle for unicast support. Toggle is `false` by default.
+
+```
+drbd_unicast_mode: true
+drbd_unicast_port: 694
+```
 
 ## Dependencies
 
