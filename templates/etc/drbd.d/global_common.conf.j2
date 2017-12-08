@@ -1,33 +1,33 @@
 # {{ ansible_managed }}
 global {
-	usage-count no;
+        usage-count no;
 }
 
 common {
-	handlers {
-	}
+        handlers {
+        }
 
-	startup {
-	}
+        startup {
+        }
 
-	options {
-	}
+        options {
+        }
 
-	net {
-    cram-hmac-alg sha1;
-    shared-secret "{{ drbd_network_shared_secret }}";
-	}
+        net {
+                cram-hmac-alg sha1;
+                shared-secret "{{ drbd_network_shared_secret }}";
+        }
 }
 
 {% for disk in drbd_disks %}
 resource {{ disk['resource'] }} {
-{%   for host in groups[drbd_group] %}
-  on {{ hostvars[host]['inventory_hostname_short'] }} {
-    device {{ disk['device'] }};
-    disk {{ disk['use_partition'] }};
-    address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
-    meta-disk internal;
-  }
-{%   endfor %}
+        {%   for host in groups[drbd_group] %}
+        on {{ hostvars[host][drbd_inventory_hostname_key] }} {
+                device {{ disk['device'] }};
+                disk {{ disk['use_partition'] }};
+                address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
+                meta-disk internal;
+        }
+        {%   endfor %}
 }
 {% endfor %}
