@@ -26,3 +26,4 @@ drbd_unicast_mode: false
 drbd_unicast_port: 694
 
 drbd_additional_packages: []
+drbd_managed_services: []
