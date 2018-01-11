@@ -19,11 +19,15 @@ drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
 
+# Control long or short name
 drbd_inventory_hostname_key: inventory_hostname_short
 
+# Toggle
+drbd_wait_for_sync: true
 drbd_use_parted: true
 drbd_unicast_mode: false
 drbd_unicast_port: 694
 
+# Lists of additional packages and services
 drbd_additional_packages: []
 drbd_managed_services: []

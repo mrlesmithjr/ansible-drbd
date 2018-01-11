@@ -61,7 +61,8 @@
   delay: 30
   when: >
         _drbd_primary['changed'] and
-        inventory_hostname == groups[drbd_group][0]
+        inventory_hostname == groups[drbd_group][0] and
+        drbd_wait_for_sync
 
 - name: config | Partitioning DRBD Device
   filesystem:
@@ -70,8 +71,12 @@
   become: true
   with_items: "{{ drbd_disks }}"
   when: >
-        inventory_hostname == groups[drbd_group][0] and
-        _drbd_sync['changed']
+    inventory_hostname == groups[drbd_group][0] and
+    (
+      (drbd_wait_for_sync and _drbd_sync['changed'])
+      or
+      (drbd_wait_for_sync == false and _drbd_primary['changed'])
+    )
 
 - name: config | Creating DRBD Mountpoint
   file:
