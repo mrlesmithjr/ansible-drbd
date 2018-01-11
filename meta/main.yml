@@ -9,7 +9,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-    - name: RHEL
+    - name: EL
       versions:
         - 6
 
