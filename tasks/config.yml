@@ -90,6 +90,7 @@
     path: "{{ item['mountpoint'] }}"
     src: "{{ item['device'] }}"
     fstype: "{{ item['filesystem'] }}"
+    opts: "noauto"
     state: present
   become: true
   with_items: "{{ drbd_disks }}"

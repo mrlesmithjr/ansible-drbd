@@ -76,6 +76,20 @@ drbd_managed_services:
 
 See defaults/main.yml for more details
 
+
+Support for including handlers in a drbd primary/secondary playbook
+
+``` main.yml
+
+- include_role:
+    name: mrlesmithjr.drbd
+    tasks_from: noop
+
+- name: enable drbd primary
+  command: /bin/true
+  notify: drbd primary
+```
+
 ## Dependencies
 
 -   [ansible-ntp](https://github.com/mrlesmithjr/ansible-ntp)

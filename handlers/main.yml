@@ -11,3 +11,32 @@
     name: heartbeat
     state: restarted
   become: true
+
+# order matters
+- name: drbd umount disks
+  mount:
+    path: "{{ item['mountpoint'] }}"
+    src: "{{ item['device'] }}"
+    fstype: "{{ item['filesystem'] }}"
+    opts: "noauto"
+    state: unmounted
+  become: true
+  with_items: "{{ drbd_disks }}"
+
+- name: drbd secondary
+  command: "drbdadm secondary all"
+  become: true
+
+- name: drbd primary
+  command: "drbdadm primary all"
+  become: true
+
+- name: drbd mount disks
+  mount:
+    path: "{{ item['mountpoint'] }}"
+    src: "{{ item['device'] }}"
+    fstype: "{{ item['filesystem'] }}"
+    opts: "noauto"
+    state: mounted
+  become: true
+  with_items: "{{ drbd_disks }}"
