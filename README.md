@@ -61,6 +61,13 @@ drbd_interface: enp0s8
 drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
+
+```
+
+Additional variables include
+
+```
+drbd_use_heartbeat: true
 ```
 
 ## Dependencies
