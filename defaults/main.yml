@@ -23,3 +23,6 @@ drbd_vip: 192.168.250.100
 drbd_additional_packages: ['drbd8-utils']
 # EPEL for RedHat, requires repo already configures, see geerlingguy.repo-epel
 # drbd_additional_packages: ['drbd84-utils', 'kmod-drbd84']
+
+# Toggle
+drbd_use_heartbeat: true
