@@ -68,6 +68,7 @@ Additional variables include
 
 ```
 drbd_use_parted: false
+drbd_use_heartbeat: true
 drbd_unicast_mode: true
 drbd_managed_services:
   - httpd

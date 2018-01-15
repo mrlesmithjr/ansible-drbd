@@ -21,6 +21,7 @@
   tags:
     - drbd
     - drbd-heartbeat
+  when: drbd_use_heartbeat
 
 - include_tasks: config.yml
   tags:
