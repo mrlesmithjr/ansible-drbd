@@ -1,33 +1,50 @@
 # {{ ansible_managed }}
 global {
-        usage-count no;
+  usage-count no;
 }
 
 common {
-        handlers {
-        }
+  protocol "{{ drbd_protocol|default('C') }}";
 
-        startup {
-        }
+  handlers {
+  }
 
-        options {
-        }
+  startup {
+  }
 
-        net {
-                cram-hmac-alg sha1;
-                shared-secret "{{ drbd_network_shared_secret }}";
-        }
+  options {
+  }
+
+  disk {
+    no-md-flushes;
+  }
+
+  net {
+    max-buffers 8000;
+    max-epoch-size 8000;
+    sndbuf-size 0;
+    cram-hmac-alg sha1;
+    shared-secret "{{ drbd_network_shared_secret }}";
+  }
+
+  syncer {
+    c-plan-ahead 20;
+    c-fill-target 50k;
+    c-min-rate 10M;
+    al-extents 3833;
+    use-rle;
+  }
 }
 
 {% for disk in drbd_disks %}
 resource {{ disk['resource'] }} {
-        {%   for host in groups[drbd_group] %}
-        on {{ hostvars[host][drbd_inventory_hostname_key] }} {
-                device {{ disk['device'] }};
-                disk {{ disk['use_partition'] }};
-                address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
-                meta-disk {{ disk['meta_disk']|default('internal') }};
-        }
-        {%   endfor %}
+    {% for host in groups[drbd_group] %}
+    on {{ hostvars[host][drbd_inventory_hostname_key] }} {
+      device {{ disk['device'] }};
+      disk {{ disk['use_partition'] }};
+      address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
+      meta-disk {{ disk['meta_disk']|default('internal') }};
+    }
+    {% endfor %}
 }
 {% endfor %}
