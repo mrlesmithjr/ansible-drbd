@@ -53,6 +53,7 @@ drbd_disks:
     resource: r0
     state: present
     use_partition: /dev/sdb1
+    meta_disk: /dev/sdc1
 
 drbd_group: test_nodes
 

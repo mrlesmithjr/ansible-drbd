@@ -26,7 +26,7 @@ resource {{ disk['resource'] }} {
                 device {{ disk['device'] }};
                 disk {{ disk['use_partition'] }};
                 address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
-                meta-disk internal;
+                meta-disk {{ disk['meta_disk']|default('internal') }};
         }
         {%   endfor %}
 }
