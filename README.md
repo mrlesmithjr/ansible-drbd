@@ -65,7 +65,9 @@ drbd_vip: 192.168.250.100
 
 ```
 
-Additional variables include
+If a VIP is not required, then set to empty string.
+
+Additional variables include:
 
 ```
 drbd_use_parted: false
@@ -76,7 +78,6 @@ drbd_managed_services:
 ```
 
 See defaults/main.yml for more details
-
 
 Support for including handlers in a drbd primary/secondary playbook
 
@@ -91,6 +92,7 @@ Support for including handlers in a drbd primary/secondary playbook
   notify: drbd primary
 ```
 
+If you toggle pacemaker
 ## Dependencies
 
 -   [ansible-ntp](https://github.com/mrlesmithjr/ansible-ntp)
@@ -109,6 +111,21 @@ Support for including handlers in a drbd primary/secondary playbook
     - role: ansible-etc-hosts
     - role: ansible-drbd
 ```
+
+## Molecule Testing
+
+Building locally with Vagrant
+
+        pip install -r requirements.txt
+        molecule test
+
+Requires Vagrant and VirtualBox, tested on MacOS High Sierra.
+
+Example, create new vagrant scenario named 'toggle',
+
+        molecule --debug init scenario --scenario-name toggle --driver-name vagrant --role-name ansible-drbd
+        molecule test -s toggle
+
 
 ## License
 

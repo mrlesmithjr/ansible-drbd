@@ -18,3 +18,10 @@
     state: present
   become: true
   when: drbd_use_heartbeat
+
+- name: rhel | Installing Parted Package
+  apt:
+    name: parted
+    state: present
+  become: true
+  when: drbd_use_parted
