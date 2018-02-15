@@ -1,0 +1,71 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/default/requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: instance1
+    box: debian/stretch64
+    groups:
+      - group1
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+  - name: instance2
+    box: debian/stretch64
+    groups:
+      - group1
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    group_vars:
+      group1:
+        losetup:
+          - name: disk0
+            device: /dev/loop0
+            image: /var/disk0.img
+            mode: "0600"
+            owner: root
+            group: root
+            size: 128m
+          - name: disk1
+            device: /dev/loop1
+            image: /var/disk1.img
+            mode: "0600"
+            owner: root
+            group: root
+            size: 2g
+        drbd_disks:
+          - device: /dev/drbd0
+            disk: /dev/loop1
+            meta_disk: /dev/loop0
+            filesystem: ext4
+            partitions: 1
+            mountpoint: /opt/nfs
+            resource: r0
+            state: present
+            use_partition: /dev/loop1p1
+        drbd_group: group1
+        drbd_interface: eth1
+        drbd_unicast_mode: true
+        drbd_unicast_port: 694
+        drbd_vip: ""
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

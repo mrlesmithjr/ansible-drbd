@@ -53,6 +53,7 @@ drbd_disks:
     resource: r0
     state: present
     use_partition: /dev/sdb1
+    meta_disk: /dev/sdc1
 
 drbd_group: test_nodes
 
@@ -61,8 +62,37 @@ drbd_interface: enp0s8
 drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
+
 ```
 
+If a VIP is not required, then set to empty string.
+
+Additional variables include:
+
+```
+drbd_use_parted: false
+drbd_use_heartbeat: true
+drbd_unicast_mode: true
+drbd_managed_services:
+  - httpd
+```
+
+See defaults/main.yml for more details
+
+Support for including handlers in a drbd primary/secondary playbook
+
+``` main.yml
+
+- include_role:
+    name: mrlesmithjr.drbd
+    tasks_from: noop
+
+- name: enable drbd primary
+  command: /bin/true
+  notify: drbd primary
+```
+
+If you toggle pacemaker
 ## Dependencies
 
 -   [ansible-ntp](https://github.com/mrlesmithjr/ansible-ntp)
@@ -81,6 +111,21 @@ drbd_vip: 192.168.250.100
     - role: ansible-etc-hosts
     - role: ansible-drbd
 ```
+
+## Molecule Testing
+
+Building locally with Vagrant
+
+        pip install -r requirements.txt
+        molecule test
+
+Requires Vagrant and VirtualBox, tested on MacOS High Sierra.
+
+Example, create new vagrant scenario named 'toggle',
+
+        molecule --debug init scenario --scenario-name toggle --driver-name vagrant --role-name ansible-drbd
+        molecule test -s toggle
+
 
 ## License
 
