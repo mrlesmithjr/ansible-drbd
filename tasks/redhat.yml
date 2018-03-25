@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ drbd_additional_packages }}"
+  with_items: "{{ drbd_rpm_packages }}"
 
 - name: rhel | Installing Heartbeat Package
   yum:

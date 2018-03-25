@@ -16,7 +16,6 @@
     drbd_use_heartbeat: true
     drbd_use_parted: false
     drbd_vip: ""
-    drbd_additional_packages: ['drbd84-utils', 'kmod-drbd84']
     losetup:
       - name: disk0
         device: /dev/loop0

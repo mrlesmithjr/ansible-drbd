@@ -75,11 +75,11 @@ drbd_use_parted: true
 
 Debian Stretch and Ubuntu Xenial contains DRBD in kernel, and supports Heartbeat.  They have the most out of the box support for the defaults.
 
-DRBD packages for CentOS can be built from [linbit](https://www.linbit.com), or from [ELREPO](http://elrepo.org/) repository. These should be included in the `drbd_additional_packages` list.  See vagrant-box-templates `playbook.yml` examples below.
+DRBD packages for CentOS can be built from [linbit](https://www.linbit.com), or from [ELREPO](http://elrepo.org/) repository. These should be included in the `drbd_rpm_packages` list.  See vagrant-box-templates `playbook.yml` examples below.
 
-Heartbeat is available for CentOS6, but not for CentOS7.  Heartbeat is now optional through a toggle.
+Heartbeat is available for CentOS6, but not for CentOS7.  Heartbeat is now optional through a toggle `drbd_use_heartbeat`. You will be required to handle reboots and failover by other means. Toggle is `true` by default.
 
-The behaviour of loop disk partitions is has only become more consistent in later linux distributions. To maintain compatibility, the option to toggle off parted entirely.
+The behaviour of loop disk partitions is has only become more consistent in later linux distributions. To maintain compatibility, the option to toggle off parted `drbd_use_parted` is provided. Toggle is `true` by default.
 
 
 ## Dependencies

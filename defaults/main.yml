@@ -19,10 +19,10 @@ drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
 
-# Debian9
-drbd_additional_packages: ['drbd8-utils']
-# EPEL for RedHat, requires repo already configures, see geerlingguy.repo-epel
-# drbd_additional_packages: ['drbd84-utils', 'kmod-drbd84']
+# Debian9/Ubuntu have included drbd support.
+drbd_deb_packages: ['drbd8-utils']
+# Additional yum repo required. See ELREPO for prebuilt RHEL RPMS, or your local site administrator.
+drbd_rpm_packages: ['drbd84-utils', 'kmod-drbd84']
 
 # Toggle
 drbd_use_heartbeat: true
