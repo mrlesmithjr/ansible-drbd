@@ -6,6 +6,11 @@
     - drbd
   when: ansible_os_family == "Debian"
 
+- include: redhat.yml
+  tags:
+    - drbd
+  when: ansible_os_family == "RedHat"
+
 - include: disks.yml
   tags:
     - drbd
@@ -16,6 +21,7 @@
   tags:
     - drbd
     - drbd-heartbeat
+  when: drbd_use_heartbeat
 
 - include: config.yml
   tags:
