@@ -27,3 +27,5 @@ drbd_rpm_packages: ['drbd84-utils', 'kmod-drbd84']
 # Toggle
 drbd_use_heartbeat: true
 drbd_use_parted: true
+drbd_unicast_mode: false
+drbd_unicast_port: 694
