@@ -15,6 +15,7 @@ drbd_disks:
     filesystem: ext4
     partitions: 1
     mountpoint: /opt/nfs
+    mountopts: defaults
     resource: r0
     state: present
     use_partition: /dev/sdb1
