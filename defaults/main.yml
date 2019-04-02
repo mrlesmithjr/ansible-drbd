@@ -19,6 +19,7 @@ drbd_disks:
     resource: r0
     state: present
     use_partition: /dev/sdb1
+    service: ""
 
 drbd_group: test_nodes
 
