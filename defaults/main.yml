@@ -1,5 +1,8 @@
 ---
 # defaults file for ansible-drbd
+
+drbd_config_filename: etc/drbd.d/global_common.conf.j2
+
 drbd_common:
   disk: ''
   net: |
