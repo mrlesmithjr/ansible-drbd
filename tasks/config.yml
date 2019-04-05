@@ -1,7 +1,7 @@
 ---
 - name: config | Configuring DRBD
   template:
-    src: {{ drbd_config_filename }}
+    src: "{{ drbd_config_filename }}"
     dest: /etc/drbd.d/global_common.conf
     owner: root
     group: root
