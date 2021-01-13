@@ -10,4 +10,4 @@
     name: heartbeat
     enabled: true
   become: true
-  when: drbd_use_heartbeat
+  when: drbd_use_heartbeat and drbd_quorum is sameas false

@@ -25,7 +25,7 @@
   become: true
   register: _drbd_mirror_device_created
   with_items: "{{ _drbd_mirror_device_creation_status['results'] }}"
-  when: not item['stat']['exists']
+  when: not item['stat']['exists'] and drbd_quorum is sameas false
 
 - name: config | Marking DRDB Mirror Devices Created
   file:
@@ -40,8 +40,10 @@
   become: true
   register: _drbd_mirror_device_up
   with_items: "{{ drbd_disks}}"
-  when: >
-        _drbd_mirror_device_created['changed']
+  failed_when: >
+    _drbd_mirror_device_up.rc != 0 and
+    _drbd_mirror_device_up.stderr.find("volume exists already") == -1
+  changed_when: _drbd_mirror_device_up.stderr.find("volume exists already") == -1
 
 - name: config | Defining DRBD Primary
   command: drbdadm -- --overwrite-data-of-peer primary {{ item['resource'] }}/0
@@ -79,6 +81,7 @@
     state: directory
   become: true
   with_items: "{{ drbd_disks }}"
+  when: drbd_quorum is sameas false
 
 - name: config | Updating /etc/fstab Mounts
   mount:
@@ -89,3 +92,4 @@
     state: present
   become: true
   with_items: "{{ drbd_disks }}"
+  when: drbd_quorum is sameas false
