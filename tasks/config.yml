@@ -21,7 +21,7 @@
   with_items: "{{ drbd_disks }}"
 
 - name: config | Creating DRBD Mirror Devices
-  command: drbdadm create-md {{ item['item']['resource'] }}
+  command: drbdadm create-md {{ item['item']['resource'] }} --force
   become: true
   register: _drbd_mirror_device_created
   with_items: "{{ _drbd_mirror_device_creation_status['results'] }}"
