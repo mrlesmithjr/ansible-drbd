@@ -46,7 +46,7 @@
   changed_when: _drbd_mirror_device_up.stderr.find("volume exists already") == -1
 
 - name: config | Defining DRBD Primary
-  command: drbdadm -- --overwrite-data-of-peer primary {{ item['resource'] }}/0
+  command: drbdadm primary --force {{ item['resource'] }}
   become: true
   register: _drbd_primary
   with_items: "{{ drbd_disks }}"
