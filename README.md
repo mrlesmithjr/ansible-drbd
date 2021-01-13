@@ -70,12 +70,18 @@ drbd_interface: enp0s8
 drbd_network_shared_secret: wXE8MqVa
 
 drbd_vip: 192.168.250.100
+```
 
+For each node
+
+```yaml
+---
+drbd_node_id: 0
 ```
 
 Additional variables include
 
-```
+```yaml
 drbd_use_heartbeat: true
 drbd_use_parted: true
 ```

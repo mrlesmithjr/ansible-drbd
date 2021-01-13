@@ -17,6 +17,8 @@ common {
 resource {{ disk['resource'] }} {
 {%   for host in groups[drbd_group] %}
   on {{ hostvars[host]['inventory_hostname_short'] }} {
+    {% if drbd_node_id is defined %}node-id {{ hostvars[host]['drbd_node_id'] }};
+    {% endif %}
     device {{ disk['device'] }};
     disk {{ disk['use_partition'] }};
     address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
