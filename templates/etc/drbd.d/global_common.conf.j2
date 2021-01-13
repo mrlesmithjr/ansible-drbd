@@ -19,9 +19,10 @@ resource {{ disk['resource'] }} {
   on {{ hostvars[host]['inventory_hostname_short'] }} {
     {% if drbd_node_id is defined %}node-id {{ hostvars[host]['drbd_node_id'] }};
 {% endif %}    device {{ disk['device'] }};
-    disk {{ disk['use_partition'] }};
+    disk {% if hostvars[host]['drbd_quorum'] is sameas false %}{{ disk['use_partition'] }}{% else %}none{% endif %};
     address {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}:7788;
-    meta-disk internal;
+{% if hostvars[host]['drbd_quorum'] is sameas false %}    meta-disk internal;
+{% endif %}
   }
 
 {% endfor %}

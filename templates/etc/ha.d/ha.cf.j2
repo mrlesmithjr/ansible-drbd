@@ -12,7 +12,8 @@ auto_failback off
 
 udpport {{ drbd_unicast_port }}
 {% for host in groups[drbd_group] %}
-ucast {{ drbd_interface }} {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}
+{% if hostvars[host]['drbd_quorum'] is sameas false %}ucast {{ drbd_interface }} {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}
+{% endif %}
 {% endfor %}
 
 {% else %}
@@ -20,5 +21,6 @@ bcast {{ drbd_interface }}
 {% endif %}
 
 {% for host in groups[drbd_group] %}
-node {{ hostvars[host]['inventory_hostname_short'] }}
+{% if hostvars[host]['drbd_quorum'] is sameas false %}node {{ hostvars[host]['inventory_hostname_short'] }}
+{% endif %}
 {% endfor %}

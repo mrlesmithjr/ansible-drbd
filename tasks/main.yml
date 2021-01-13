@@ -1,6 +1,10 @@
 ---
 # tasks file for ansible-drbd
 
+- name: Set quorum fact
+  set_fact:
+    drbd_quorum: "{{ drbd_quorum }}"
+
 - include_tasks: debian.yml
   tags:
     - drbd
@@ -21,7 +25,7 @@
   tags:
     - drbd
     - drbd-heartbeat
-  when: drbd_use_heartbeat
+  when: drbd_use_heartbeat and drbd_quorum is sameas false
 
 - include_tasks: config.yml
   tags:
