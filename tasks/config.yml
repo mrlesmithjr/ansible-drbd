@@ -45,6 +45,18 @@
     _drbd_mirror_device_up.stderr.find("volume exists already") == -1
   changed_when: _drbd_mirror_device_up.stderr.find("volume exists already") == -1
 
+- name: config | Waiting For DRBD Node To Be Ready
+  command: drbdadm status {{ item['resource'] }}
+  become: true
+  register: _drbd_ready
+  with_items: "{{ drbd_disks }}"
+  until: ('Connecting' not in _drbd_ready['stdout'])
+  retries: 100
+  delay: 5
+  when: >
+    _drbd_mirror_device_up['changed'] and
+    inventory_hostname == groups[drbd_group][0]
+
 - name: config | Defining DRBD Primary
   command: drbdadm primary --force {{ item['resource'] }}
   become: true
