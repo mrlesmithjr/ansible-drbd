@@ -88,7 +88,7 @@
     path: "{{ item['mountpoint'] }}"
     src: "{{ item['device'] }}"
     fstype: "{{ item['filesystem'] }}"
-    opts: "{{ item['mountopts'] }}"
+    opts: "{{ item['mountopts'] | default('defaults,_netdev,noatime') }}"
     state: present
   become: true
   with_items: "{{ drbd_disks }}"
