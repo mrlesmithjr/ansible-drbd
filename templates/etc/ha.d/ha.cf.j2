@@ -1,12 +1,25 @@
 # {{ ansible_managed }}
 
-keepalive 1
-deadtime 10
-initdead 60
+keepalive {{ drbd_ha_keepalive }}
+deadtime {{ drbd_ha_deadtime }}
+initdead {{ drbd_ha_initdead }}
+{% if drbd_ha_warntime is defined %}warntime {{ drbd_ha_warntime }}
+{% endif %}
+{% if drbd_ha_logfile is defined %}
 
-auto_failback off
+logfile {{ drbd_ha_logfile }}
+{% endif %}
+{% if drbd_ha_debugfile is defined %}
+debugfile {{ drbd_ha_debugfile }}
+{% endif %}
 
+auto_failback {{ drbd_ha_auto_failback }}
+{% if drbd_ha_ping is defined %}
+
+ping {{ drbd_ha_ping }}
+{% endif %}
 {% if drbd_unicast_mode %}
+
 udpport {{ drbd_unicast_port }}
 {% for host in groups[drbd_group] %}
 {% if hostvars[host]['drbd_quorum'] is sameas false %}ucast {{ drbd_interface }} {{ hostvars[host]['ansible_' + drbd_interface]['ipv4']['address'] }}
