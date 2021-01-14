@@ -105,4 +105,6 @@
     state: present
   become: true
   with_items: "{{ drbd_disks }}"
-  when: drbd_quorum is sameas false
+  when: >
+    drbd_quorum is sameas false and
+    drbd_use_heartbeat is sameas false
