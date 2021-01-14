@@ -67,9 +67,10 @@
         inventory_hostname == groups[drbd_group][0]
 
 - name: config | Waiting For DRBD Sync To Complete
-  command: drbd-overview
+  command: drbdadm status {{ item['resource'] }}
   become: true
   register: _drbd_sync
+  with_items: "{{ drbd_disks }}"
   until: ('Inconsistent' not in _drbd_sync['stdout'])
   retries: 100
   delay: 30
