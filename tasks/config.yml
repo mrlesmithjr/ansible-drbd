@@ -72,7 +72,7 @@
   register: _drbd_sync
   with_items: "{{ drbd_disks }}"
   until: ('Inconsistent' not in _drbd_sync['stdout'])
-  retries: 100
+  retries: 300
   delay: 30
   when: >
         _drbd_primary['changed'] and
